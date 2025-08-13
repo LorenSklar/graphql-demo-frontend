@@ -51,8 +51,6 @@
     margin-top: 0;
   }
   
-
-  
   .loading-state {
     display: flex;
     align-items: center;

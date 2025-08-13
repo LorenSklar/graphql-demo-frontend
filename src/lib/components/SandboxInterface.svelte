@@ -4,6 +4,11 @@
   import ExecuteButton from './ExecuteButton.svelte';
   import ResponseDisplay from './ResponseDisplay.svelte';
   import { config } from '../config';
+  import { onMount } from 'svelte';
+
+  onMount(() => {
+    console.log('Backend URL used at runtime:', config.backendUrl);
+});
   
   let queryText = '';
   
