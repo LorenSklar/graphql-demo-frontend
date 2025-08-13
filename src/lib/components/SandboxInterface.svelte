@@ -3,6 +3,7 @@
   import QueryEditor from './QueryEditor.svelte';
   import ExecuteButton from './ExecuteButton.svelte';
   import ResponseDisplay from './ResponseDisplay.svelte';
+  import { config } from '../config';
   
   let queryText = '';
   
@@ -16,7 +17,7 @@
     lessonStore.update(state => ({ ...state, isLoading: true }));
     
     try {
-      const response = await fetch('http://localhost:8000/sandbox', {
+      const response = await fetch(`${config.backendUrl}/sandbox`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +33,7 @@
       }));
       
       // Log the interaction
-      await fetch('http://localhost:8000/log', {
+      await fetch(`${config.backendUrl}/log`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

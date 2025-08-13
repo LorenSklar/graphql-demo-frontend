@@ -51,10 +51,7 @@
     margin-top: 0;
   }
   
-  h3 {
-    margin: 0 0 15px 0;
-    color: #333;
-  }
+
   
   .loading-state {
     display: flex;
