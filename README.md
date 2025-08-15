@@ -241,17 +241,6 @@ vercel env add BACKEND_URL
 
 ## Troubleshooting
 
-### Common Issues
-- **CORS Errors**: Ensure backend allows requests from frontend origin
-- **Connection Refused**: Verify backend is running on correct port
-- **GraphQL Errors**: Check query syntax and schema compatibility
-
-### Debug Mode
-- Enable browser developer tools
-- Check Network tab for API requests
-- Monitor Console for JavaScript errors
-- Verify backend logs for incoming requests
-
 ## Contributing
 
 This MVP focuses on:

@@ -1,0 +1,76 @@
+# lesson-1a1.yaml
+# How do I ask for information?
+
+concept:
+  id: "concept-uuid-1a1"
+  type: "Concept"
+  name: "Single Field Query"
+  inquiry: "How do I ask for information using GraphQL?"
+  objective: "Discover how to write a basic GraphQL query for a single field"
+  workingExample: |
+    query {
+      ping
+    }
+  explorationPrompt: "Hit run and see what happens. Then try changing 'ping' to any word you want and run it again.
+  reflectionPrompts:
+    - "What did you notice about how the server responds to different requests?"
+    - "What words and symbols are required? Optional? Different than Python?"
+    - "What happens when you ask for something that doesn't exist?"
+    - "How do you think the server 'knows' what fields are available?"
+    - "How would you describe the process of asking for and receiving information in GraphQL?"
+  reflectionTargets:
+    - "The server responds with different values for different field requests"
+    - "GraphQL does not match Python syntax. Curly braces are still dictionary-like but quotes are not needed for field names"
+    - "Error messages help you understand what's available"
+    - "The server has built-in knowledge of its own structure"
+    - "GraphQL is a conversation between client and server"
+  foundationIds: []  # This is the starting point
+  extensionIds: ["concept-uuid-1a2"]
+  exerciseIds: ["exercise-uuid-1a1-1"]
+  resourceIds: ["resource-uuid-1a1-1", "resource-uuid-1a1-2"]
+
+exercises:
+  - id: "exercise-uuid-1a1-1"
+    type: "Exercise"
+    inquiry: "Write a query to ask for 'marco'. What happens if you remove the word 'query'? Does the query still work? What about the curly braces?"
+    generalHints:
+      - id: "hint-uuid-1a1-1"
+        text: "Look at the working example above - what would you change to ask for 'marco' instead of 'ping'?"
+        type: "GENERAL_HINT"
+        tag: "pattern-recognition"
+      - id: "hint-uuid-1a1-2"
+        text: "The structure stays exactly the same, only the word inside changes"
+        type: "GENERAL_HINT"
+        tag: "structure"
+    optionalHints:
+      - id: "hint-uuid-1a1-error-1"
+        text: "Did you forget the curly braces? GraphQL needs those around your question"
+        type: "COMMON_ERROR"
+        tag: "syntax"
+      - id: "hint-uuid-1a1-error-2"
+        text: "Make sure you're asking for 'marco' not 'Marco' - GraphQL is case-sensitive"
+        type: "COMMON_ERROR"
+        tag: "case-sensitivity"
+      - id: "hint-uuid-1a1-misconception-1"
+        text: "You don't need quotes around the word - marco not \"marco\""
+        type: "COMMON_MISCONCEPTION"
+        tag: "syntax"
+    solution: 
+      - "query { marco }"
+    minimalAnswerPattern: "query.*marco"
+    difficultyScore: 1
+    suggestedNextExerciseIds: ["exercise-uuid-1a2-1"]  # Multiple fields
+    suggestedPrevExerciseIds: []
+
+resources:
+  - id: "resource-uuid-1a1-1"
+    type: "Resource"
+    title: "GraphQL Query Basics - Interactive Tutorial"
+    typeEnum: "TUTORIAL"
+    url: "https://graphql.org/learn/queries/"
+  - id: "resource-uuid-1a1-2"
+    type: "Resource"
+    title: "What is a GraphQL Query?"
+    typeEnum: "ARTICLE"
+    url: "https://blog.logrocket.com/what-is-graphql-query/"
+

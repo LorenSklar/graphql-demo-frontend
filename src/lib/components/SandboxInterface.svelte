@@ -150,7 +150,7 @@
     }
     
     .center-panel {
-      order: 0; /* Keep natural order: Editor -> Actions -> Console */
+      order: 0; 
       justify-content: center;
       padding: 20px 0;
     }
