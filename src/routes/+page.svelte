@@ -10,21 +10,21 @@
   // TODO: Create these components
   // import ReflectionContainer from '$lib/components/ReflectionContainer.svelte';
 
-  let currentLesson;
-  let userData;
+  // Auto-subscription to stores (proper Svelte pattern)
+  $: lessonData = $lessonStore;
+  $: userData = $userStore;
 
-  const unsubscribeUser = userStore.subscribe((user) => {
-    userData = user;
+  // Reactive declarations based on store state
+  $: isLoading = lessonData.loading;
+  $: lesson = lessonData.data;
+  $: error = lessonData.error;
+  $: currentExercise = lesson?.exercises?.[userData?.lesson?.currentExerciseIndex];
+  $: currentConcept = lesson?.concepts?.[0];
+
+  onMount(() => {
+    // Store handles its own state management
+    loadLessonData();
   });
-
-  onMount(async () => {
-    // Load lesson data
-    currentLesson = await loadLessonData();
-  });
-
-  // Reactive declarations
-  $: currentExercise = currentLesson?.exercises?.[userData?.currentExerciseIndex];
-  $: currentConcept = currentLesson?.concepts?.[0]; // Get first concept from array
 
   function handleConfidenceExploring() {
     // Thumbs down - still exploring, stay with exercises
@@ -48,22 +48,32 @@
 </script>
 
 <main>
-  {#if currentLesson && userData && currentExercise && currentConcept}
+  {#if isLoading}
+    <div class="loading">
+      <p>Loading lesson...</p>
+    </div>
+  {:else if error}
+    <div class="error">
+      <h3>Unable to load lesson</h3>
+      <p>Please check your connection and try again.</p>
+      <button on:click={() => loadLessonData()}>Retry</button>
+    </div>
+  {:else if lesson && userData && currentExercise && currentConcept}
     
     <CourseHeader 
       conceptName={currentConcept.name}
-      currentExercise={userData.currentExerciseIndex + 1}
-      totalExercises={currentLesson.exercises.length}
+      currentExercise={userData.lesson.currentExerciseIndex + 1}
+      totalExercises={lesson.exercises.length}
       onBrowseTopics={handleBrowseTopics}
     />
     
     <InquiryDisplay 
       conceptInquiry={currentConcept.inquiry || ''}
-      currentHint={userData.currentHintIndex >= 0 ? currentConcept.generalHints?.[userData.currentHintIndex]?.text || '' : ''}
-      currentSolution={userData.currentSolutionIndex >= 0 ? currentConcept.solutions?.[userData.currentSolutionIndex] || '' : ''}
+      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
+      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
     />
 
-    {#if userData.readyForNext}
+    {#if userData.lesson.readyForNext}
       <!-- TODO: Create ReflectionContainer component -->
       <div class="stub-component">
         <h3>Reflection Container (TODO)</h3>
@@ -76,7 +86,7 @@
 
     <ConfidenceCheck 
       conceptName={currentConcept.name}
-      nextConceptName={currentLesson.nextConcept?.name}
+      nextConceptName="Multiple Fields"
       onExploring={handleConfidenceExploring}
       onReady={handleConfidenceReady}
       onBrowseTopics={handleBrowseTopics}
@@ -84,7 +94,7 @@
 
   {:else}
     <div class="loading">
-      <p>Loading lesson...</p>
+      <p>Initializing...</p>
     </div>
   {/if}
 </main>
@@ -111,6 +121,37 @@
   .loading p {
     font-size: 1.1rem;
     color: #666;
+  }
+
+  .error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 50vh;
+    text-align: center;
+  }
+
+  .error h3 {
+    color: #dc2626;
+    margin-bottom: 1rem;
+  }
+
+  .error p {
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+
+  .error button {
+    padding: 0.5rem 1rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  .error button:hover {
+    background: #1d4ed8;
   }
 
   .stub-component {

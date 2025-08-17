@@ -11,8 +11,8 @@
   export let onUseGeneralHint = () => {};
   export let onUseSolutionHint = () => {};
 
-  // Mock resource data structure to match wireframe
-  const resourceButtons = [
+  // Reactive resource buttons that update when props change
+  $: resourceButtons = [
     {
       id: 'watch',
       label: 'Watch',

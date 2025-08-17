@@ -1,5 +1,3 @@
-<!-- src/lib/components/InquiryDisplay.svelte -->
- 
 <script lang="ts">
   export let conceptInquiry: string = "";
   export let currentHint: string = "";
@@ -7,16 +5,18 @@
 </script>
 
 <div class="inquiry-display">
-  <!-- Main Inquiry/Driving Question -->
-  {#if conceptInquiry}
-    <div class="inquiry-container">
-      <h2 class="inquiry-question">{conceptInquiry}</h2>
-    </div>
-  {/if}
+  <!-- Inquiry Container -->
+  <div class="inquiry-container">
+    {#if conceptInquiry}
+      <div class="inquiry-container">
+        <h2 class="inquiry-question">{conceptInquiry}</h2>
+      </div>
+    {/if}
+  </div>
 
   <!-- Current Hint (only shown when requested) -->
   {#if currentHint}
-    <div class="hint">
+    <div class="concept-hint">
       <span class="hint-label">💡 Hint:</span>
       <span class="hint-text">{currentHint}</span>
     </div>
@@ -24,7 +24,7 @@
 
   <!-- Current Solution (only shown when requested) -->
   {#if currentSolution}
-    <div class="solution">
+    <div class="concept-solution">
       <span class="solution-label">✅ Solution:</span>
       <span class="solution-text">{currentSolution}</span>
     </div>
@@ -45,7 +45,11 @@
     margin-bottom: 1.5rem;
   }
 
-  .inquiry-title {
+  .concept-inquiry {
+    margin: 0;
+  }
+
+  .inquiry-question {
     font-size: 1.5rem;
     font-weight: 600;
     color: #1e293b;
@@ -53,7 +57,7 @@
     margin: 0;
   }
 
-  .hint, .solution {
+  .concept-hint, .concept-solution {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -62,12 +66,12 @@
     border-radius: 0.5rem;
   }
 
-  .hint {
+  .concept-hint {
     background-color: #fef3c7;
     border-left: 4px solid #f59e0b;
   }
 
-  .solution {
+  .concept-solution {
     background-color: #d1fae5;
     border-left: 4px solid #10b981;
   }
@@ -87,12 +91,9 @@
   }
 
   .hint-text, .solution-text {
+    color: #451a03;
     line-height: 1.6;
     font-size: 1rem;
-  }
-
-  .hint-text {
-    color: #451a03;
   }
 
   .solution-text {

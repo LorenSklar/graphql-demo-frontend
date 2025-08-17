@@ -10,9 +10,9 @@
   // Reactive declarations to get current state
   $: lessonData = $lessonStore;
   $: userData = $userStore;
-  $: currentExercise = lessonData?.exercises?.[userData.currentExerciseIndex];
-  $: currentConceptIndex = userData?.currentConceptIndex || 0;
-  $: currentConcept = lessonData?.concepts?.[currentConceptIndex];
+  $: currentExercise = lessonData?.data?.exercises?.[userData.lesson?.currentExerciseIndex];
+  $: currentConceptIndex = userData?.lesson?.currentConceptIndex || 0;
+  $: currentConcept = lessonData?.data?.concepts?.[currentConceptIndex];
 
   function handleBrowseTopics() {
     // TODO: Navigate back to curriculum
@@ -20,25 +20,26 @@
   }
 
   function handlePreviousExercise() {
-    if (userData.currentExerciseIndex > 0) {
+    if (userData.lesson.currentExerciseIndex > 0) {
       userActions.goToPreviousExercise();
     }
   }
 
   function handleNextExercise() {
-    if (userData.passedRegex && userData.currentExerciseIndex < lessonData.exercises.length - 1) {
+    if (userData.lesson.passedRegex && userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1) {
       userActions.goToNextExercise();
     }
   }
 </script>
 
 <div class="exercise-container">
-  {#if lessonData && currentExercise}
+  {#if lessonData?.data && currentExercise}
+
     <ExerciseResourceBar 
-      resources={lessonData.resources}
-      generalHintsUsed={Math.max(0, userData.currentHintIndex + 1)}
+      resources={[]}
+      generalHintsUsed={userData.lesson.currentHintIndex >= 0 ? userData.lesson.currentHintIndex + 1 : 0}
       totalGeneralHints={currentConcept?.generalHints?.length || 0}
-      solutionHintsUsed={Math.max(0, userData.currentSolutionIndex + 1)}
+      solutionHintsUsed={userData.lesson.currentSolutionIndex >= 0 ? userData.lesson.currentSolutionIndex + 1 : 0}
       totalSolutionHints={currentExercise?.solutions?.length || 0}
       onUseGeneralHint={userActions.showNextHint}
       onUseSolutionHint={userActions.showNextSolution}
@@ -51,8 +52,8 @@
     />
 
     <ExerciseNavigation 
-      canGoPrevious={userData.currentExerciseIndex > 0}
-      canGoNext={userData.passedRegex && userData.currentExerciseIndex < lessonData.exercises.length - 1}
+      canGoPrevious={userData.lesson.currentExerciseIndex > 0}
+      canGoNext={userData.lesson.passedRegex && userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1}
       onPrevious={handlePreviousExercise}
       onNext={handleNextExercise}
     />

@@ -43,84 +43,98 @@ export interface Lesson {
   exercises: Exercise[];
 }
 
+// Store with loading state management
+export interface LessonState {
+  data: Lesson | null;
+  loading: boolean;
+  error: string | null;
+}
+
 // Create the store with initial state
-export const lessonStore = writable<Lesson | null>(null);
+export const lessonStore = writable<LessonState>({
+  data: null,
+  loading: true,
+  error: null
+});
 
-// Load lesson data from YAML (for now, hardcoded - will be replaced with backend call)
+// Load lesson data from backend via GraphQL
 export async function loadLessonData() {
+  lessonStore.update(state => ({ ...state, loading: true, error: null }));
+  
   try {
-    // TODO: Replace with actual backend call to /content
-    // For now, using hardcoded data that matches lesson1a1.yaml structure
-    
-    const mockLesson: Lesson = {
-      concepts: [
-        {
-          id: "concept-uuid-1a1",
-          type: "Concept",
-          name: "Single Field Query",
-          inquiry: "How do I request information using GraphQL?",
-          objective: "Discover how to write a basic GraphQL query for a single field",
-          generalHints: [
-            {
-              id: "hint-uuid-1a1-1a",
-              text: "Replace the word in { curly braces } with a different word. Some words receive data in response and others receive an error message. For now, both are ok.",
-              type: "GENERAL_HINT",
-              tag: "exploration"
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/content`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          query GetLesson($id: String!) {
+            lesson(id: $id) {
+              id
+              type
+              name
+              inquiry
+              objective
+              generalHints {
+                id
+                text
+                type
+                tag
+              }
+              exerciseIds
             }
-          ],
-          optionalHints: [],
-          reflectionPrompts: [
-            "What did you notice about how the server responds to different requests?",
-            "What words and symbols are required? Optional? Different than Python?"
-          ],
-          reflectionTargets: [],
-          foundationIds: [],
-          extensionIds: ["concept-uuid-1a2"],
-          exerciseIds: ["exercise-uuid-1a1-1", "exercise-uuid-1a1-2", "exercise-uuid-1a1-3", "exercise-uuid-1a1-4"],
-          resourceIds: ["resource-uuid-1a1-1", "resource-uuid-1a1-2", "resource-uuid-1a1-3"]
-        }
-      ],
-      exercises: [
-        {
-          id: "exercise-uuid-1a1-1",
-          type: "Exercise",
-          inquiry: "Hit run and see what happens. Then try changing 'ping' to any word you want and run it again.",
-          prefillEditor: true,
-          initialCode: "query {\n  ping\n}",
-          solutions: [
-            "What is the format for a GraphQL query? Where might you look that up?",
-            "Start with the keyword query and add { }",
-            "Now add a field name: { marco }"
-          ],
-          minimalAnswerPattern: "(query\\s*)?\\{.*\\w+.*\\}",
-          difficultyScore: 1,
-          suggestedNextExerciseIds: ["exercise-uuid-1a1-2"],
-          suggestedPrevExerciseIds: []
-        },
-        {
-          id: "exercise-uuid-1a1-2",
-          type: "Exercise",
-          inquiry: "Write a query to ask for a different field. Try 'sun'. What other field names work?",
-          prefillEditor: false,
-          initialCode: "",
-          solutions: [
-            "What did the last query look like? Can you recreate it with a different word?",
-            "Start the keyword query then add { }",
-            "Now add a field name: { sun }"
-          ],
-          minimalAnswerPattern: "(query\\s*)?\\{.*\\w+.*\\}",
-          difficultyScore: 1,
-          suggestedNextExerciseIds: ["exercise-uuid-1a1-3"],
-          suggestedPrevExerciseIds: ["exercise-uuid-1a1-1"]
-        }
-      ]
+            exercises {
+              id
+              type
+              inquiry
+              prefillEditor
+              initialCode
+              solutions
+              minimalAnswerPattern
+              difficultyScore
+              suggestedNextExerciseIds
+              suggestedPrevExerciseIds
+            }
+          }
+        `,
+        variables: { id: "lesson-1a1" }
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    if (result.errors) {
+      throw new Error('Unable to load lesson data from server');
+    }
+    
+    const lessonData = result.data.lesson;
+    const allExercises = result.data.exercises;
+    
+    if (!lessonData) {
+      throw new Error('Lesson not found');
+    }
+    
+    // Filter exercises to only include those for this lesson
+    const lessonExercises = allExercises.filter((exercise: Exercise) => 
+      lessonData.exerciseIds.includes(exercise.id)
+    );
+    
+    // Transform GraphQL response to match our Lesson interface
+    const lesson: Lesson = {
+      concepts: [lessonData],
+      exercises: lessonExercises
     };
-
-    lessonStore.set(mockLesson);
-    return mockLesson;
+    
+    lessonStore.set({ data: lesson, loading: false, error: null });
+    return lesson;
   } catch (error) {
-    console.error('Failed to load lesson data:', error);
-    lessonStore.set(null);
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load lesson data';
+    lessonStore.set({ data: null, loading: false, error: errorMessage });
     throw error;
   }
 }
