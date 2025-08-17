@@ -5,10 +5,18 @@
   import ResponseDisplay from './ResponseDisplay.svelte';
   import { config } from '../config';
   import { onMount } from 'svelte';
+  
+  export let exercise: any = null;
+  export let onQueryAttempt: () => void = () => {};
+  export let onRegexCheck: (passed: boolean) => void = () => {};
 
-  onMount(() => {
+    onMount(() => {
     console.log('Backend URL used at runtime:', config.backendUrl);
-});
+    // Prefill with exercise initial code if available
+    if (exercise?.initialCode) {
+      queryText = exercise.initialCode;
+    }
+  });
   
   let queryText = '';
   
@@ -19,7 +27,8 @@
   async function executeQuery() {
     if (!queryText.trim()) return;
     
-    lessonStore.update(state => ({ ...state, isLoading: true }));
+    // Call user actions
+    onQueryAttempt();
     
     try {
       const response = await fetch(`${config.backendUrl}/sandbox`, {
@@ -31,29 +40,34 @@
       });
       
       const result = await response.json();
-      lessonStore.update(state => ({ 
-        ...state, 
-        queryResult: result,
-        isLoading: false 
-      }));
       
-      // Log the interaction
-      await fetch(`${config.backendUrl}/log`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      // Display result in console
+      const resultDiv = document.getElementById('query-result');
+      if (resultDiv) {
+        resultDiv.innerHTML = `
+          <h4>Query Result:</h4>
+          <pre>${JSON.stringify(result, null, 2)}</pre>
+        `;
+      }
+      
+      // Check regex pattern if exercise has one
+      if (exercise?.minimalAnswerPattern) {
+        const regex = new RegExp(exercise.minimalAnswerPattern);
+        const passed = regex.test(queryText);
+        onRegexCheck(passed);
+        
+        // Log to Vercel function logs
+        console.log('Exercise validation:', {
           query: queryText,
-          result: result,
-          timestamp: new Date().toISOString()
-        })
-      });
+          pattern: exercise.minimalAnswerPattern,
+          passed: passed,
+          result: result
+        });
+      }
       
     } catch (error) {
-      lessonStore.update(state => ({ 
-        ...state, 
-        queryResult: { error: error instanceof Error ? error.message : 'Unknown error' },
-        isLoading: false 
-      }));
+      console.error('Query execution error:', error);
+      onRegexCheck(false);
     }
   }
 </script>
@@ -62,8 +76,19 @@
   <h2>GraphQL Sandbox</h2>
   
   <div class="sandbox-container">
+    <!-- Exercise Info Above Editor -->
+    {#if exercise?.inquiry}
+      <div class="exercise-header">
+        <h3>Exercise</h3>
+        <p class="exercise-inquiry">{exercise.inquiry}</p>
+        {#if exercise.minimalAnswerPattern}
+          <p class="exercise-pattern">Pattern: <code>{exercise.minimalAnswerPattern}</code></p>
+        {/if}
+      </div>
+    {/if}
+    
     <div class="left-panel">
-      <h3>Editor</h3>
+      <h3>GraphQL Editor</h3>
       <QueryEditor 
         {queryText}
         onQueryChange={handleQueryChange}
@@ -75,20 +100,20 @@
       <div class="button-container">
         <ExecuteButton 
           onExecute={executeQuery}
-          isLoading={$lessonStore.isLoading}
+          isLoading={false}
           disabled={!queryText.trim()}
         />
       </div>
     </div>
     
-    <div class="right-panel">
-      <h3>Console</h3>
-      <ResponseDisplay 
-        queryResult={$lessonStore.queryResult}
-        isLoading={$lessonStore.isLoading}
-        error={null}
-      />
-    </div>
+          <div class="right-panel">
+        <h3>Console</h3>
+        <div class="console-output">
+          <div class="query-result" id="query-result">
+            <p class="console-placeholder">Execute a query to see results...</p>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 
@@ -112,6 +137,39 @@
     font-weight: 600;
   }
   
+  .exercise-header {
+    grid-column: 1 / -1;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #dee2e6;
+  }
+
+  .exercise-header h3 {
+    margin: 0 0 0.5rem 0;
+    color: #495057;
+  }
+
+  .exercise-inquiry {
+    color: #495057;
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  .exercise-pattern {
+    color: #6c757d;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .exercise-pattern code {
+    background: #e9ecef;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+  }
+
   .sandbox-container {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -140,6 +198,34 @@
   
   .right-panel {
     min-height: 200px;
+  }
+
+  .console-output {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    min-height: 100px;
+  }
+
+  .exercise-info h4 {
+    color: #4ec9b0;
+    margin-bottom: 0.5rem;
+  }
+
+  .pattern-info {
+    color: #808080;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .console-placeholder {
+    color: #808080;
+    font-style: italic;
+    text-align: center;
+    margin: 2rem 0;
   }
   
   /* Mobile responsive */

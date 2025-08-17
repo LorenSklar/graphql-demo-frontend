@@ -7,8 +7,7 @@
   import InquiryDisplay from '$lib/components/InquiryDisplay.svelte';
   import ExerciseContainer from '$lib/components/ExerciseContainer.svelte';
   import ConfidenceCheck from '$lib/components/ConfidenceCheck.svelte';
-  // TODO: Create these components
-  // import ReflectionContainer from '$lib/components/ReflectionContainer.svelte';
+  import ReflectionStub from '$lib/components/ReflectionStub.svelte';
 
   // Auto-subscription to stores (proper Svelte pattern)
   $: lessonData = $lessonStore;
@@ -74,12 +73,7 @@
     />
 
     {#if userData.lesson.readyForNext}
-      <!-- TODO: Create ReflectionContainer component -->
-      <div class="stub-component">
-        <h3>Reflection Container (TODO)</h3>
-        <p>This will show reflection prompts when user is ready for next concept.</p>
-        <button on:click={handleReflectionClose}>Back to Exercise</button>
-      </div>
+      <ReflectionStub onClose={handleReflectionClose} />
     {:else}
       <ExerciseContainer />
     {/if}

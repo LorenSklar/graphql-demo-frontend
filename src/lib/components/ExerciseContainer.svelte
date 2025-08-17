@@ -4,7 +4,7 @@
   import { lessonStore } from '$lib/stores/lessonStore';
   import { userStore, userActions } from '$lib/stores/userStore';
   import ExerciseResourceBar from './ExerciseResourceBar.svelte';
-  import SandboxContainer from './SandboxContainer.svelte';
+  import SandboxInterface from './SandboxInterface.svelte';
   import ExerciseNavigation from './ExerciseNavigation.svelte';
 
   // Reactive declarations to get current state
@@ -45,7 +45,7 @@
       onUseSolutionHint={userActions.showNextSolution}
     />
 
-    <SandboxContainer 
+    <SandboxInterface 
       exercise={currentExercise}
       onQueryAttempt={userActions.addQueryAttempt}
       onRegexCheck={userActions.setRegexPassed}
