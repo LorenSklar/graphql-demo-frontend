@@ -42,7 +42,7 @@
       label: 'Hint',
       icon: Lightbulb,
       color: 'yellow',
-      available: generalHintsUsed < totalGeneralHints,
+      available: totalGeneralHints > 0,
       count: `(${generalHintsUsed}/${totalGeneralHints})`,
       action: onUseGeneralHint
     },
@@ -51,7 +51,7 @@
       label: 'Solution',
       icon: Eye,
       color: 'purple',
-      available: solutionHintsUsed < totalSolutionHints,
+      available: totalSolutionHints > 0,
       count: `(${solutionHintsUsed}/${totalSolutionHints})`,
       action: onUseSolutionHint
     }

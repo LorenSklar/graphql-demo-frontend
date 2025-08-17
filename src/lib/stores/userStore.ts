@@ -100,7 +100,15 @@ export const userActions = {
   // Hints and solutions
   showNextHint() {
     userStore.update(state => {
-      const nextIndex = (state.lesson.currentHintIndex + 1) % 3;
+      // Cycle: -1 → 0 → 1 → 2 → -1
+      let nextIndex;
+      if (state.lesson.currentHintIndex === -1) {
+        nextIndex = 0;
+      } else if (state.lesson.currentHintIndex === 2) {
+        nextIndex = -1;
+      } else {
+        nextIndex = state.lesson.currentHintIndex + 1;
+      }
       return {
         ...state,
         lesson: {
@@ -113,7 +121,15 @@ export const userActions = {
 
   showNextSolution() {
     userStore.update(state => {
-      const nextIndex = (state.lesson.currentSolutionIndex + 1) % 3;
+      // Cycle: -1 → 0 → 1 → 2 → -1
+      let nextIndex;
+      if (state.lesson.currentSolutionIndex === -1) {
+        nextIndex = 0;
+      } else if (state.lesson.currentSolutionIndex === 2) {
+        nextIndex = -1;
+      } else {
+        nextIndex = state.lesson.currentSolutionIndex + 1;
+      }
       return {
         ...state,
         lesson: {
