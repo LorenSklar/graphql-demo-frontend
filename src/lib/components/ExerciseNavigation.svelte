@@ -35,7 +35,7 @@
 
 <style>
   .exercise-navigation {
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: center;
     margin-top: 0.25rem;
   }
@@ -44,7 +44,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   .exercise-counter {
@@ -53,16 +53,14 @@
     font-size: 1rem;
   }
 
-
-
   .nav-button {
     padding: 0.75rem 1.25rem;
     border: 1px solid #dee2e6;
-    border-radius: 12px;
+    border-radius: 0.75rem;
     background: white;
     cursor: pointer;
     font-weight: 500;
-    min-width: 140px;
+    min-width: 8.75rem;
   }
 
   .nav-button:hover:not(:disabled) {
@@ -85,6 +83,4 @@
     background: #005a9e;
     border-color: #005a9e;
   }
-
-
 </style>

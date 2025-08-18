@@ -8,9 +8,9 @@
   import ExerciseContainer from '$lib/components/ExerciseContainer.svelte';
   import ConfidenceCheck from '$lib/components/ConfidenceCheck.svelte';
   import ReflectionStub from '$lib/components/ReflectionStub.svelte';
-  import ExerciseNavigation from '$lib/components/ExerciseNavigation.svelte';
 
-  // Auto-subscription to stores (proper Svelte pattern)
+
+  // Auto-subscription to stores
   $: lessonData = $lessonStore;
   $: userData = $userStore;
 
@@ -26,6 +26,7 @@
     loadLessonData();
   });
 
+  // Event handlers
   function handleConfidenceExploring() {
     // Thumbs down - still exploring, stay with exercises
     userActions.setReadyForNext(false);
@@ -71,15 +72,15 @@
       <ReflectionStub onClose={handleReflectionClose} />
     {:else}
       <ExerciseContainer />
+      
+      <ConfidenceCheck 
+        conceptName={currentConcept.name}
+        nextConceptName="Multiple Fields"
+        onExploring={handleConfidenceExploring}
+        onReady={handleConfidenceReady}
+        onBrowseTopics={handleBrowseTopics}
+      />
     {/if}
-
-    <ConfidenceCheck 
-      conceptName={currentConcept.name}
-      nextConceptName="Multiple Fields"
-      onExploring={handleConfidenceExploring}
-      onReady={handleConfidenceReady}
-      onBrowseTopics={handleBrowseTopics}
-    />
 
   {:else}
     <div class="loading">
@@ -138,5 +139,12 @@
     background: #1d4ed8;
   }
 
+  .learning-workspace {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
 
 </style>

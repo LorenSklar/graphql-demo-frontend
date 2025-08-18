@@ -36,12 +36,7 @@
 <div class="exercise-container">
   {#if lessonData?.data && currentExercise}
 
-    <InquiryDisplay 
-      conceptInquiry={currentExercise.inquiry || currentConcept?.inquiry || ''}
-      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
-      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
-    />
-
+    <!-- Resource Bar -->
     <ExerciseResourceBar 
       resources={[]}
       generalHintsUsed={userData.lesson.currentHintIndex >= 0 ? userData.lesson.currentHintIndex + 1 : 0}
@@ -50,6 +45,13 @@
       totalSolutionHints={currentExercise?.solutions?.length || 0}
       onUseGeneralHint={userActions.showNextHint}
       onUseSolutionHint={userActions.showNextSolution}
+    />
+
+    <!-- Exercise Inquiry -->
+    <InquiryDisplay 
+      exerciseInquiry={currentExercise.inquiry || ''}
+      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
+      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
     />
 
     <SandboxInterface 
@@ -80,9 +82,13 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background-color: white;
   }
 
   .loading {
+    min-height: 50vh;
     text-align: center;
     padding: 2rem;
     color: #64748b;

@@ -10,9 +10,7 @@
   export let onQueryAttempt: () => void = () => {};
   export let onRegexCheck: (passed: boolean) => void = () => {};
 
-    onMount(() => {
-    console.log('Config object:', config);
-    console.log('Backend URL used at runtime:', config?.backendUrl);
+  onMount(() => {
     // Prefill with exercise initial code if available
     if (exercise?.prefillEditor) {
       queryText = exercise.prefillEditorText;
@@ -110,51 +108,43 @@
 <style>
   .sandbox {
     width: 100%;
+    box-sizing: border-box;
     margin: 0.5rem 0 0 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
-
-  
   h3 {
-    margin: 0 0 8px 0;
+    margin: 0 0 0.5rem 0;
     color: #333;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
-
-
   .sandbox-container {
-    gap: 20px;
-  }
-  
-  .left-panel, .right-panel {
+    gap: 1.5rem;
   }
   
   .button-container {
-    margin-top: 12px;
+    margin-top: 0.5rem;
     text-align: center;
   }
   
   .right-panel {
-    min-height: 80px;
+    min-height: 5rem;
   }
 
   .console-output {
     background: #1e1e1e;
     color: #d4d4d4;
-    padding: 0.75rem;
+    padding: 0.5rem;
     border-radius: 0.25rem;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.85rem;
-    min-height: 80px;
+    font-size: 0.875rem;
+    min-height: 5rem;
     border: 1px solid #e2e8f0;
   }
-
-
 
   .console-placeholder {
     color: #808080;
@@ -166,19 +156,16 @@
   
   /* Mobile responsive */
   @media (max-width: 768px) {
-    .sandbox-container {
-    }
-    
     .left-panel, .right-panel {
       width: 100%;
     }
     
     .left-panel {
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
     }
     
     .button-container {
-      margin-top: 8px;
+      margin-top: 0.5rem;
     }
   }
 </style>

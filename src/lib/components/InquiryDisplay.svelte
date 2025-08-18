@@ -1,20 +1,20 @@
 <script lang="ts">
-  export let conceptInquiry: string = "";
+  export let exerciseInquiry: string = "";
   export let currentHint: string = "";
   export let currentSolution: string = "";
 </script>
 
 <div class="inquiry-display">
-  <!-- Inquiry Container -->
-  {#if conceptInquiry}
+  <!-- Exercise Inquiry Container -->
+  {#if exerciseInquiry}
     <div class="inquiry-container">
-      <h2 class="inquiry-question">{conceptInquiry}</h2>
+      <h2 class="inquiry-question">{exerciseInquiry}</h2>
     </div>
   {/if}
 
   <!-- Current Hint (only shown when requested) -->
   {#if currentHint}
-    <div class="concept-hint">
+    <div class="exercise-hint">
       <span class="hint-label">💡 Hint:</span>
       <span class="hint-text">{currentHint}</span>
     </div>
@@ -22,7 +22,7 @@
 
   <!-- Current Solution (only shown when requested) -->
   {#if currentSolution}
-    <div class="concept-solution">
+    <div class="exercise-solution">
       <span class="solution-label">✅ Solution:</span>
       <span class="solution-text">{currentSolution}</span>
     </div>
@@ -31,7 +31,8 @@
 
 <style>
   .inquiry-display {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.125rem;
+    margin-top: 1.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
@@ -39,17 +40,15 @@
     margin-bottom: 0.5rem;
   }
 
-
-
   .inquiry-question {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     font-weight: 600;
     color: #1e293b;
     line-height: 1.2;
     margin: 0;
   }
 
-  .concept-hint, .concept-solution {
+  .exercise-hint, .exercise-solution {
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
@@ -58,12 +57,12 @@
     border-radius: 0.25rem;
   }
 
-  .concept-hint {
-    background-color: #fef3c7;
+  .exercise-hint {
+    background-color: #fef2f2;
     border-left: 4px solid #f59e0b;
   }
 
-  .concept-solution {
+  .exercise-solution {
     background-color: #d1fae5;
     border-left: 4px solid #10b981;
   }

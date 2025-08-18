@@ -36,6 +36,10 @@
   .confidence-check {
     text-align: center;
     margin-top: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    background-color: white;
   }
 
   .confidence-question {

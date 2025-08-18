@@ -50,11 +50,11 @@
 
   .curriculum-hierarchy {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1.5rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem 0.75rem;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     border: 1px solid #e2e8f0;
   }
 
@@ -88,5 +88,18 @@
 
   .hierarchy-item.cluster .value {
     color: #059669;
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 640px) {
+    .curriculum-hierarchy {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.5rem;
+      padding: 0.75rem;
+    }
+    
+    .hierarchy-item .value {
+      font-size: 0.875rem;
+    }
   }
 </style>

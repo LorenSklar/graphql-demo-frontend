@@ -29,6 +29,7 @@
   
   .query-editor {
     width: 100%;
+    box-sizing: border-box;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 14px;
     padding: 10px;
