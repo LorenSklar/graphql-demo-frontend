@@ -8,6 +8,7 @@
   import ExerciseContainer from '$lib/components/ExerciseContainer.svelte';
   import ConfidenceCheck from '$lib/components/ConfidenceCheck.svelte';
   import ReflectionStub from '$lib/components/ReflectionStub.svelte';
+  import ExerciseNavigation from '$lib/components/ExerciseNavigation.svelte';
 
   // Auto-subscription to stores (proper Svelte pattern)
   $: lessonData = $lessonStore;
@@ -66,12 +67,6 @@
       onBrowseTopics={handleBrowseTopics}
     />
     
-    <InquiryDisplay 
-      conceptInquiry={currentConcept.inquiry || ''}
-      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
-      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
-    />
-
     {#if userData.lesson.readyForNext}
       <ReflectionStub onClose={handleReflectionClose} />
     {:else}
@@ -96,13 +91,14 @@
 <style>
   main {
     min-height: 100vh;
-    background: #fafafa;
+    background: white;
     max-width: 900px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .loading {
@@ -115,6 +111,7 @@
   .loading p {
     font-size: 1.1rem;
     color: #666;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .error {
@@ -128,11 +125,13 @@
   .error h3 {
     color: #dc2626;
     margin-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .error p {
     color: #666;
     margin-bottom: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .error button {
@@ -142,6 +141,7 @@
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .error button:hover {
@@ -159,10 +159,12 @@
   .stub-component h3 {
     color: #6c757d;
     margin-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .stub-component p {
     color: #6c757d;
     margin-bottom: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 </style>

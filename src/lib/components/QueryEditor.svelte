@@ -23,18 +23,19 @@
 
 <style>
   .query-editor-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
   .query-editor {
     width: 100%;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 14px;
-    padding: 12px;
+    padding: 10px;
     border: 2px solid #ddd;
     border-radius: 6px;
     resize: vertical;
-    min-height: 120px;
+    min-height: 80px;
   }
   
   .query-editor:focus {

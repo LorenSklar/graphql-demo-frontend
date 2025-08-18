@@ -6,13 +6,11 @@
 
 <div class="inquiry-display">
   <!-- Inquiry Container -->
-  <div class="inquiry-container">
-    {#if conceptInquiry}
-      <div class="inquiry-container">
-        <h2 class="inquiry-question">{conceptInquiry}</h2>
-      </div>
-    {/if}
-  </div>
+  {#if conceptInquiry}
+    <div class="inquiry-container">
+      <h2 class="inquiry-question">{conceptInquiry}</h2>
+    </div>
+  {/if}
 
   <!-- Current Hint (only shown when requested) -->
   {#if currentHint}
@@ -33,16 +31,12 @@
 
 <style>
   .inquiry-display {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .inquiry-container {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    border: 1px solid #e2e8f0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .concept-inquiry {
@@ -50,20 +44,20 @@
   }
 
   .inquiry-question {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #1e293b;
-    line-height: 1.3;
+    line-height: 1.2;
     margin: 0;
   }
 
   .concept-hint, .concept-solution {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
   }
 
   .concept-hint {

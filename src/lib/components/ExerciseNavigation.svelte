@@ -1,36 +1,26 @@
 <!-- src/lib/components/ExerciseNavigation.svelte -->
  
 <script>
+  export let currentExercise = 1;
+  export let totalExercises = 1;
   export let canGoPrevious = false;
   export let canGoNext = false;
   export let onPrevious = () => {};
   export let onNext = () => {};
 </script>
 
-<div class="exercise-navigation-stub">
-  <h3>ExerciseNavigation (TODO)</h3>
-  
-  <div class="nav-buttons">
+<div class="exercise-navigation">
+  <div class="nav-controls">
     <button 
       on:click={onPrevious}
       disabled={!canGoPrevious}
       class="nav-button previous"
     >
-      ← Previous Exercise
+      ← Previous
     </button>
     
-    <div class="nav-status">
-      <span class="status-text">
-        {#if !canGoPrevious && !canGoNext}
-          Single exercise
-        {:else if !canGoPrevious}
-          First exercise
-        {:else if !canGoNext}
-          Complete current to continue
-        {:else}
-          Navigate exercises
-        {/if}
-      </span>
+    <div class="exercise-counter">
+      Exercise {currentExercise} / {totalExercises}
     </div>
     
     <button 
@@ -38,23 +28,32 @@
       disabled={!canGoNext}
       class="nav-button next"
     >
-      Next Exercise →
+      Next →
     </button>
   </div>
 </div>
 
 <style>
-  .exercise-navigation-stub {
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border: 2px dashed #dee2e6;
+  .exercise-navigation {
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     text-align: center;
+    margin-top: 1rem;
   }
 
-  .exercise-navigation-stub h3 {
-    color: #6c757d;
-    margin-bottom: 1rem;
+  .nav-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .exercise-counter {
+    font-weight: 600;
+    color: #374151;
+    font-size: 1rem;
   }
 
   .nav-buttons {

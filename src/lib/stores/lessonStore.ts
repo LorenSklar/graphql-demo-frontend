@@ -30,7 +30,7 @@ export interface Exercise {
   type: string;
   inquiry: string;
   prefillEditor?: boolean;
-  initialCode?: string;
+  prefillEditorText?: string;
   solutions: string[];
   minimalAnswerPattern: string;
   difficultyScore: number;
@@ -89,7 +89,7 @@ export async function loadLessonData() {
               type
               inquiry
               prefillEditor
-              initialCode
+              prefillEditorText
               solutions
               minimalAnswerPattern
               difficultyScore

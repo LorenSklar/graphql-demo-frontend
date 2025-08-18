@@ -48,53 +48,57 @@
 
 <style>
   .reflection-stub {
-    padding: 2rem;
-    background: #f8f9fa;
-    border: 2px solid #dee2e6;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
     border-radius: 0.5rem;
     max-width: 600px;
     margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .reflection-stub h3 {
     color: #495057;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .subtitle {
     color: #6c757d;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .reflection-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.75rem;
   }
 
   .prompt-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
 
   .prompt-group label {
     font-weight: 500;
     color: #495057;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .prompt-group textarea {
-    padding: 0.75rem;
+    padding: 0.5rem;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
-    font-family: inherit;
-    font-size: 0.9rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.85rem;
     resize: vertical;
+    min-height: 40px;
   }
 
   .prompt-group textarea:focus {
@@ -105,18 +109,20 @@
 
   .actions {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: 0.25rem;
   }
 
   .btn-primary, .btn-secondary {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.25rem;
     font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
+    font-size: 0.9rem;
   }
 
   .btn-primary {

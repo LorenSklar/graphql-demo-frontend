@@ -52,7 +52,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    padding: 1.5rem;
+    padding: 1.5rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     border-radius: 0.75rem;
     border: 1px solid #e2e8f0;

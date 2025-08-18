@@ -25,21 +25,22 @@
     background: #007acc;
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
-    min-height: 48px;
-    min-width: 100px;
+    min-height: 40px;
+    min-width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
   }
   
   .play-icon {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
   }
   

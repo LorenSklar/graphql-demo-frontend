@@ -6,6 +6,7 @@
   import ExerciseResourceBar from './ExerciseResourceBar.svelte';
   import SandboxInterface from './SandboxInterface.svelte';
   import ExerciseNavigation from './ExerciseNavigation.svelte';
+  import InquiryDisplay from './InquiryDisplay.svelte';
 
   // Reactive declarations to get current state
   $: lessonData = $lessonStore;
@@ -26,7 +27,7 @@
   }
 
   function handleNextExercise() {
-    if (userData.lesson.passedRegex && userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1) {
+    if (userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1) {
       userActions.goToNextExercise();
     }
   }
@@ -34,6 +35,12 @@
 
 <div class="exercise-container">
   {#if lessonData?.data && currentExercise}
+
+    <InquiryDisplay 
+      conceptInquiry={currentExercise.inquiry || currentConcept?.inquiry || ''}
+      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
+      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
+    />
 
     <ExerciseResourceBar 
       resources={[]}
@@ -52,8 +59,10 @@
     />
 
     <ExerciseNavigation 
+      currentExercise={userData.lesson.currentExerciseIndex + 1}
+      totalExercises={lessonData.data?.exercises?.length || 1}
       canGoPrevious={userData.lesson.currentExerciseIndex > 0}
-      canGoNext={userData.lesson.passedRegex && userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1}
+      canGoNext={userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1}
       onPrevious={handlePreviousExercise}
       onNext={handleNextExercise}
     />
@@ -67,12 +76,10 @@
   .exercise-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 2rem;
-    min-height: 100vh;
-    background: #fafafa;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.75rem;
   }
 
   .loading {
