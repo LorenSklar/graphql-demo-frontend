@@ -39,9 +39,7 @@
     margin-bottom: 0.5rem;
   }
 
-  .concept-inquiry {
-    margin: 0;
-  }
+
 
   .inquiry-question {
     font-size: 1.1rem;

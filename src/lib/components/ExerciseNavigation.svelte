@@ -53,12 +53,7 @@
     font-size: 1rem;
   }
 
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-  }
+
 
   .nav-button {
     padding: 0.75rem 1.25rem;
@@ -91,14 +86,5 @@
     border-color: #005a9e;
   }
 
-  .nav-status {
-    flex: 1;
-    text-align: center;
-  }
 
-  .status-text {
-    color: #6c757d;
-    font-size: 0.875rem;
-    font-style: italic;
-  }
 </style>

@@ -138,23 +138,5 @@
     background: #1d4ed8;
   }
 
-  .stub-component {
-    padding: 2rem;
-    background: #f8f9fa;
-    border: 2px dashed #dee2e6;
-    border-radius: 0.5rem;
-    text-align: center;
-  }
 
-  .stub-component h3 {
-    color: #6c757d;
-    margin-bottom: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  .stub-component p {
-    color: #6c757d;
-    margin-bottom: 1rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
 </style>

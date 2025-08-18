@@ -11,7 +11,8 @@
   export let onRegexCheck: (passed: boolean) => void = () => {};
 
     onMount(() => {
-    console.log('Backend URL used at runtime:', config.backendUrl);
+    console.log('Config object:', config);
+    console.log('Backend URL used at runtime:', config?.backendUrl);
     // Prefill with exercise initial code if available
     if (exercise?.prefillEditor) {
       queryText = exercise.prefillEditorText;
@@ -114,12 +115,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
-  h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    color: #333;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
+
   
   h3 {
     margin: 0 0 8px 0;
@@ -129,40 +125,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   
-  .exercise-header {
-    grid-column: 1 / -1;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #e2e8f0;
-  }
 
-  .exercise-header h3 {
-    margin: 0 0 0.25rem 0;
-    color: #495057;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  .exercise-inquiry {
-    color: #495057;
-    margin: 0 0 0.25rem 0;
-    font-size: 0.9rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  .exercise-pattern {
-    color: #6c757d;
-    margin: 0;
-    font-size: 0.8rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
-
-  .exercise-pattern code {
-    background: #f1f5f9;
-    padding: 0.1rem 0.3rem;
-    border-radius: 0.2rem;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  }
 
   .sandbox-container {
     gap: 20px;
@@ -191,18 +154,7 @@
     border: 1px solid #e2e8f0;
   }
 
-  .exercise-info h4 {
-    color: #4ec9b0;
-    margin-bottom: 0.25rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
 
-  .pattern-info {
-    color: #808080;
-    font-size: 0.75rem;
-    margin-bottom: 0.25rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  }
 
   .console-placeholder {
     color: #808080;

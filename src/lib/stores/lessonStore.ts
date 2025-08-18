@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { config } from '$lib/config';
 
 // Types based on the YAML structure
 export interface Hint {
@@ -62,7 +63,7 @@ export async function loadLessonData() {
   lessonStore.update(state => ({ ...state, loading: true, error: null }));
   
   try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/content`, {
+    const response = await fetch(`${config.backendUrl}/content`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
