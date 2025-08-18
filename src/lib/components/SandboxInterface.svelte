@@ -165,22 +165,15 @@
   }
 
   .sandbox-container {
-    display: flex;
     gap: 20px;
-    align-items: flex-start;
   }
   
   .left-panel, .right-panel {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
   }
   
   .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-top: 12px;
+    text-align: center;
   }
   
   .right-panel {
@@ -222,7 +215,6 @@
   /* Mobile responsive */
   @media (max-width: 768px) {
     .sandbox-container {
-      flex-direction: column;
     }
     
     .left-panel, .right-panel {
@@ -234,7 +226,6 @@
     }
     
     .button-container {
-      justify-content: center;
       margin-top: 8px;
     }
   }

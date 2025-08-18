@@ -42,7 +42,8 @@
     color: #374151;
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: normal;
+    margin: 0 0 1.5rem 0;
   }
 
   .confidence-actions {
@@ -59,7 +60,7 @@
     gap: 0.5rem;
     padding: 1rem;
     border: 2px solid #e5e7eb;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     background: white;
     cursor: pointer;
     font-weight: 500;
@@ -96,7 +97,7 @@
     background: none;
     border: 1px solid #e5e7eb;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
+    border-radius: 12px;
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;

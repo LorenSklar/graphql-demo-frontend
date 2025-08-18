@@ -95,16 +95,10 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 0.75rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
   .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 50vh;
   }
 
@@ -115,11 +109,7 @@
   }
 
   .error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     min-height: 50vh;
-    text-align: center;
   }
 
   .error h3 {

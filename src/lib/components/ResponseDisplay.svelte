@@ -52,9 +52,6 @@
   }
   
   .loading-state {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     color: #666;
   }
   

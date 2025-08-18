@@ -16,7 +16,7 @@
       disabled={!canGoPrevious}
       class="nav-button previous"
     >
-      ← Previous
+      &lt;&nbsp;&nbsp;Previous
     </button>
     
     <div class="exercise-counter">
@@ -28,7 +28,7 @@
       disabled={!canGoNext}
       class="nav-button next"
     >
-      Next →
+      Next&nbsp;&nbsp;&gt;
     </button>
   </div>
 </div>
@@ -36,11 +36,8 @@
 <style>
   .exercise-navigation {
     padding: 1rem;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 0.25rem;
   }
 
   .nav-controls {
@@ -66,7 +63,7 @@
   .nav-button {
     padding: 0.75rem 1.25rem;
     border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
+    border-radius: 12px;
     background: white;
     cursor: pointer;
     font-weight: 500;
@@ -84,14 +81,14 @@
   }
 
   .nav-button.next:not(:disabled) {
-    background: #28a745;
+    background: #007acc;
     color: white;
-    border-color: #28a745;
+    border-color: #007acc;
   }
 
   .nav-button.next:hover:not(:disabled) {
-    background: #218838;
-    border-color: #1e7e34;
+    background: #005a9e;
+    border-color: #005a9e;
   }
 
   .nav-status {

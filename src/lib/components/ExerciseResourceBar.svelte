@@ -59,20 +59,39 @@
 </script>
 
 <div class="resource-bar">
-  {#each resourceButtons as resource}
-    <button 
-      class="resource-button {resource.color}" 
-      class:disabled={!resource.available}
-      on:click={resource.action}
-      disabled={!resource.available}
-    >
-      <svelte:component this={resource.icon} size="16" />
-      <span class="label">{resource.label}</span>
-      {#if resource.count}
-        <span class="count">{resource.count}</span>
-      {/if}
-    </button>
-  {/each}
+  <div class="resource-group">
+    {#each resourceButtons.slice(0, 3) as resource}
+      <button 
+        class="resource-button {resource.color}" 
+        class:disabled={!resource.available}
+        on:click={resource.action}
+        disabled={!resource.available}
+      >
+        <svelte:component this={resource.icon} size="16" />
+        <span class="label">{resource.label}</span>
+        {#if resource.count}
+          <span class="count">{resource.count}</span>
+        {/if}
+      </button>
+    {/each}
+  </div>
+  
+  <div class="resource-group">
+    {#each resourceButtons.slice(3) as resource}
+      <button 
+        class="resource-button {resource.color}" 
+        class:disabled={!resource.available}
+        on:click={resource.action}
+        disabled={!resource.available}
+      >
+        <svelte:component this={resource.icon} size="16" />
+        <span class="label">{resource.label}</span>
+        {#if resource.count}
+          <span class="count">{resource.count}</span>
+        {/if}
+      </button>
+    {/each}
+  </div>
 </div>
 
 <style>
@@ -81,6 +100,11 @@
     gap: 0.75rem;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .resource-group {
+    display: flex;
+    gap: 0.75rem;
   }
 
   .resource-button {

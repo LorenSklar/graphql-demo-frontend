@@ -22,20 +22,17 @@
 
 <style>
   .execute-btn {
-    background: #007acc;
+    background: #28a745;
     color: white;
     border: none;
     padding: 10px 16px;
-    border-radius: 6px;
+    border-radius: 12px;
     font-size: 15px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
     min-height: 40px;
     min-width: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 6px;
   }
   
@@ -59,7 +56,7 @@
   }
   
   .execute-btn:hover:not(:disabled) {
-    background: #005a9e;
+    background: #218838;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
