@@ -68,7 +68,15 @@ export const lessonStore = writable<LessonState>({
   error: null
 });
 
-// Load lesson data with layered approach
+// Load lesson data with layered approach to avoid lag resulting from Render warmup
+// TODO: cache current lesson data in local storage, then check for updates on load.
+
+// Load lesson data with layered approach to avoid lag resulting from Render warmup
+// 
+// Current approach: YAML files load instantly, backend warms up in background
+// Future approach: localStorage cache + GraphQL updates for real-time data
+// 
+// TODO: cache current lesson data in local storage, then check for updates on load.
 export async function loadLessonData() {
   lessonStore.update(state => ({ ...state, loading: true, error: null }));
   

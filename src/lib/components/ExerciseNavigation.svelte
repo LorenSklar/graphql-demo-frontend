@@ -16,7 +16,8 @@
       disabled={!canGoPrevious}
       class="nav-button previous"
     >
-      &lt;&nbsp;&nbsp;Previous
+      <span class="text">Previous</span>
+      <span class="arrow">&lt;</span>
     </button>
     
     <div class="exercise-counter">
@@ -28,7 +29,8 @@
       disabled={!canGoNext}
       class="nav-button next"
     >
-      Next&nbsp;&nbsp;&gt;
+      <span class="text">Next</span>
+      <span class="arrow">&gt;</span>
     </button>
   </div>
 </div>
@@ -63,6 +65,22 @@
     min-width: 8.75rem;
   }
 
+  /* Mobile first - smaller buttons */
+  .nav-button {
+    padding: 0.5rem 0.75rem;
+    min-width: 3rem;
+    font-size: 0.875rem;
+  }
+
+  /* Larger screens - bigger buttons */
+  @media (min-width: 768px) {
+    .nav-button {
+      padding: 0.75rem 1.25rem;
+      min-width: 8.75rem;
+      font-size: 1rem;
+    }
+  }
+
   .nav-button:hover:not(:disabled) {
     background: #e9ecef;
     border-color: #adb5bd;
@@ -82,5 +100,25 @@
   .nav-button.next:hover:not(:disabled) {
     background: #005a9e;
     border-color: #005a9e;
+  }
+
+  /* Mobile first - show arrows, hide text */
+  .nav-button .text {
+    display: none;
+  }
+
+  .nav-button .arrow {
+    display: inline;
+  }
+
+  /* Larger screens - show text, hide arrows */
+  @media (min-width: 768px) {
+    .nav-button .text {
+      display: inline;
+    }
+    
+    .nav-button .arrow {
+      display: none;
+    }
   }
 </style>
