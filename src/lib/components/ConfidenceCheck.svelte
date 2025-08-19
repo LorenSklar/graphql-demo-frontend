@@ -1,24 +1,50 @@
 <!-- src/lib/components/ConfidenceCheck.svelte -->
  
-<script>
-  import { ThumbsDown, ThumbsUp } from 'lucide-svelte';
+<script lang="ts">
+  import { ThumbsDown, ThumbsUp, Brain } from 'lucide-svelte';
   
   export let conceptName = '';
   export let nextConceptName = '';
-  export let onExploring = () => {};
-  export let onReady = () => {};
+  export let onNeedHelp = () => {}; // Thumbs down - need foundation help
+  export let onStillExploring = () => {}; // Brain - more exercises
+  export let onReadyForReflection = () => {}; // Thumbs up - ready for reflection
   export let onBrowseTopics = () => {};
+  
+  let selectedConfidence = 'neutral'; // Default to neutral
+  
+  function selectConfidence(type: 'thumbs-down' | 'neutral' | 'thumbs-up') {
+    selectedConfidence = type;
+    // Handle the action based on confidence level
+    if (type === 'thumbs-down') onNeedHelp();
+    else if (type === 'neutral') onStillExploring();
+    else if (type === 'thumbs-up') onReadyForReflection();
+  }
 </script>
 
 <div class="confidence-check">
-  <p class="confidence-question">How confident do you feel about {conceptName}? Ready for {nextConceptName || 'the next concept'}?</p>
+  <p class="confidence-question">How confident do you feel about {conceptName}?</p>
   
   <div class="confidence-actions">
-    <button on:click={onExploring} class="exploring-btn">
+    <button 
+      class="thumbs-down-btn {selectedConfidence === 'thumbs-down' ? 'selected' : ''}"
+      on:click={() => selectConfidence('thumbs-down')}
+    >
       <ThumbsDown size="20" />
+      <span>What am I doing wrong?</span>
+    </button>
+    
+    <button 
+      class="neutral-btn {selectedConfidence === 'neutral' ? 'selected' : ''}"
+      on:click={() => selectConfidence('neutral')}
+    >
+      <Brain size="20" />
       <span>Still exploring</span>
     </button>
-    <button on:click={onReady} class="ready-btn">
+    
+    <button 
+      class="thumbs-up-btn {selectedConfidence === 'thumbs-up' ? 'selected' : ''}"
+      on:click={() => selectConfidence('thumbs-up')}
+    >
       <ThumbsUp size="20" />
       <span>Got it! What's next?</span>
     </button>
@@ -52,9 +78,10 @@
 
   .confidence-actions {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     justify-content: center;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
 
   .confidence-actions button {
@@ -67,28 +94,78 @@
     border-radius: 12px;
     background: white;
     cursor: pointer;
-    font-weight: 500;
-    min-width: 120px;
+    min-width: 140px;
     transition: all 0.2s;
   }
 
-  .exploring-btn {
-    color: #6b7280;
+  .thumbs-down-btn {
+    color: #dc2626;
+    border-color: #fecaca;
   }
 
-  .exploring-btn:hover {
-    border-color: #d1d5db;
-    background: #f9fafb;
+  .thumbs-down-btn:hover {
+    border-color: #fca5a5;
+    background: #fef2f2;
   }
 
-  .ready-btn {
+  .neutral-btn {
+    color: #2563eb;
+    border-color: #93c5fd;
+    background: white;
+    border-width: 2px;
+  }
+
+  .neutral-btn:hover {
+    border-color: #3b82f6;
+    background: #dbeafe;
+  }
+
+  .thumbs-up-btn {
     color: #059669;
     border-color: #10b981;
   }
 
-  .ready-btn:hover {
+  .thumbs-up-btn:hover {
     border-color: #059669;
     background: #f0fdf4;
+  }
+
+  /* Selected state styles */
+  .thumbs-down-btn.selected {
+    background: #fef2f2;
+    border-color: #dc2626;
+    border-width: 3px;
+  }
+
+  .neutral-btn.selected {
+    background: #dbeafe;
+    border-color: #2563eb;
+    border-width: 3px;
+  }
+
+  .thumbs-up-btn.selected {
+    background: #dcfce7;
+    border-color: #059669;
+    border-width: 3px;
+  }
+
+  /* Hover overrides selected state */
+  .confidence-actions:hover .thumbs-down-btn.selected:not(:hover) {
+    background: white !important;
+    border-color: #fecaca !important;
+    border-width: 2px !important;
+  }
+
+  .confidence-actions:hover .neutral-btn.selected:not(:hover) {
+    background: white !important;
+    border-color: #93c5fd !important;
+    border-width: 2px !important;
+  }
+
+  .confidence-actions:hover .thumbs-up-btn.selected:not(:hover) {
+    background: white !important;
+    border-color: #10b981 !important;
+    border-width: 2px !important;
   }
 
   .browse-topics-section {

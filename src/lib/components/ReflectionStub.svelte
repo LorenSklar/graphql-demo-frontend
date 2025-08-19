@@ -1,6 +1,7 @@
 <!-- src/lib/components/ReflectionStub.svelte -->
 <script lang="ts">
   export let onClose: () => void = () => {};
+  export let onSubmit: () => void = () => {}; // New callback for submitting reflection
   
   // Mock reflection prompts - you'll replace these with real data
   const reflectionPrompts = [
@@ -14,7 +15,7 @@
   function handleSubmit() {
     // TODO: Save reflection responses
     console.log('Reflection responses:', responses);
-    onClose();
+    onSubmit(); // Call onSubmit instead of onClose
   }
 </script>
 

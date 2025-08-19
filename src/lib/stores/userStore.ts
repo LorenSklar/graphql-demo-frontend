@@ -9,7 +9,8 @@ export interface LessonState {
   queryAttempts: number;
   currentHintIndex: number;
   currentSolutionIndex: number;
-  readyForNext: boolean;
+  confidenceLevel: -1 | 0 | 1; // -1: need help, 0: still exploring, 1: ready for reflection
+  sourceState: -1 | 1; // -1: need help, +1: completed reflection (for TeacherGuidance)
 }
 
 export interface UserState {
@@ -30,7 +31,8 @@ export const userStore = writable<UserState>({
     queryAttempts: 0,
     currentHintIndex: -1,
     currentSolutionIndex: -1,
-    readyForNext: false
+    confidenceLevel: 0, // Default to still exploring (show exercises)
+    sourceState: -1 // Default to -1 (need help)
   }
 });
 
@@ -66,12 +68,33 @@ export const userActions = {
   },
 
   // Confidence and reflection
+  setConfidenceLevel(level: -1 | 0 | 1) {
+    userStore.update(state => ({
+      ...state,
+      lesson: {
+        ...state.lesson,
+        confidenceLevel: level
+      }
+    }));
+  },
+
+  setSourceState(source: -1 | 1) {
+    userStore.update(state => ({
+      ...state,
+      lesson: {
+        ...state.lesson,
+        sourceState: source
+      }
+    }));
+  },
+
+  // Legacy support - can remove later
   setReadyForNext(ready: boolean) {
     userStore.update(state => ({
       ...state,
       lesson: {
         ...state.lesson,
-        readyForNext: ready
+        confidenceLevel: ready ? 1 : -1
       }
     }));
   },
@@ -167,7 +190,8 @@ export const userActions = {
         queryAttempts: 0,
         currentHintIndex: -1,
         currentSolutionIndex: -1,
-        readyForNext: false
+        confidenceLevel: -1,
+        sourceState: -1
       }
     }));
   }

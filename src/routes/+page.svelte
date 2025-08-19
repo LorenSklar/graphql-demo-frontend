@@ -8,6 +8,7 @@
   import ExerciseContainer from '$lib/components/ExerciseContainer.svelte';
   import ConfidenceCheck from '$lib/components/ConfidenceCheck.svelte';
   import ReflectionStub from '$lib/components/ReflectionStub.svelte';
+  import StudentPath from '$lib/components/StudentPath.svelte';
 
 
   // Auto-subscription to stores
@@ -27,19 +28,44 @@
   });
 
   // Event handlers
-  function handleConfidenceExploring() {
-    // Thumbs down - still exploring, stay with exercises
-    userActions.setReadyForNext(false);
+  function handleNeedHelp() {
+    // Thumbs down - need foundation help, show teacher guidance
+    userActions.setSourceState(-1);
+    userActions.setConfidenceLevel(-1);
   }
 
-  function handleConfidenceReady() {
-    // Thumbs up - ready, open reflection container
-    userActions.setReadyForNext(true);
+  function handleStillExploring() {
+    // Brain - still exploring, go to next exercise
+    userActions.setConfidenceLevel(0);
+    if (lesson && userData.lesson.currentExerciseIndex < (lesson.exercises.length - 1)) {
+      userActions.goToNextExercise();
+    }
+  }
+
+  function handleReadyForReflection() {
+    // Thumbs up - ready for reflection
+    userActions.setConfidenceLevel(1);
+  }
+
+  function handleReflectionSubmit() {
+    // Reflection submitted - show teacher guidance for next concept selection
+    userActions.setSourceState(1);
+    userActions.setConfidenceLevel(-1);
   }
 
   function handleReflectionClose() {
-    // Close reflection container, go back to exercises
-    userActions.setReadyForNext(false);
+    // Close reflection, go back to exercises
+    userActions.setConfidenceLevel(0);
+  }
+
+  function handleStudentPathClose() {
+    // Close student path, go back to exercises
+    userActions.setConfidenceLevel(0);
+  }
+
+  function handleReturnToExercise() {
+    // Return to current exercise from teacher guidance
+    userActions.setConfidenceLevel(0);
   }
 
   function handleBrowseTopics() {
@@ -68,16 +94,28 @@
       onBrowseTopics={handleBrowseTopics}
     />
     
-    {#if userData.lesson.readyForNext}
-      <ReflectionStub onClose={handleReflectionClose} />
+    {#if userData.lesson.confidenceLevel === 1}
+      <ReflectionStub 
+        onClose={handleReflectionClose} 
+        onSubmit={handleReflectionSubmit}
+      />
+    {:else if userData.lesson.confidenceLevel === -1}
+      <StudentPath 
+        sourceState={userData.lesson.sourceState}
+        onReturnToExercise={handleReturnToExercise}
+        onBrowseTopics={handleBrowseTopics}
+        onGoToFoundation={() => console.log('Go to foundation topic')}
+        onGoToExtension={() => console.log('Go to extension topic')}
+      />
     {:else}
       <ExerciseContainer />
       
       <ConfidenceCheck 
         conceptName={currentConcept.name}
         nextConceptName="Multiple Fields"
-        onExploring={handleConfidenceExploring}
-        onReady={handleConfidenceReady}
+        onNeedHelp={handleNeedHelp}
+        onStillExploring={handleStillExploring}
+        onReadyForReflection={handleReadyForReflection}
         onBrowseTopics={handleBrowseTopics}
       />
     {/if}

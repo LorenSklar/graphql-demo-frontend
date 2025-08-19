@@ -14,22 +14,11 @@
   $: currentExercise = lessonData?.data?.exercises?.[userData.lesson?.currentExerciseIndex];
   $: currentConceptIndex = userData?.lesson?.currentConceptIndex || 0;
   $: currentConcept = lessonData?.data?.concepts?.[currentConceptIndex];
+  $: completedExercises = userData.lesson.currentExerciseIndex; // Exercises completed so far
 
   function handleBrowseTopics() {
     // TODO: Navigate back to curriculum
     console.log('Browse all topics');
-  }
-
-  function handlePreviousExercise() {
-    if (userData.lesson.currentExerciseIndex > 0) {
-      userActions.goToPreviousExercise();
-    }
-  }
-
-  function handleNextExercise() {
-    if (userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1) {
-      userActions.goToNextExercise();
-    }
   }
 </script>
 
@@ -63,10 +52,7 @@
     <ExerciseNavigation 
       currentExercise={userData.lesson.currentExerciseIndex + 1}
       totalExercises={lessonData.data?.exercises?.length || 1}
-      canGoPrevious={userData.lesson.currentExerciseIndex > 0}
-      canGoNext={userData.lesson.currentExerciseIndex < (lessonData.data?.exercises?.length || 0) - 1}
-      onPrevious={handlePreviousExercise}
-      onNext={handleNextExercise}
+      completedExercises={completedExercises}
     />
 
   {:else}
