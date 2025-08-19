@@ -22,7 +22,7 @@
   $: currentConcept = lesson?.concepts?.[0];
 
   onMount(() => {
-    // Store handles its own state management
+    // Warm up backend API in background
     loadLessonData();
   });
 
@@ -137,14 +137,6 @@
 
   .error button:hover {
     background: #1d4ed8;
-  }
-
-  .learning-workspace {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-top: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
 </style>

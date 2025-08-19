@@ -11,15 +11,17 @@
   export let onRegexCheck: (passed: boolean) => void = () => {};
 
   onMount(() => {
+    console.log('Config object:', config);
+    console.log('Backend URL used at runtime:', config?.backendUrl);
     // Prefill with exercise initial code if available
     if (exercise?.prefillEditor) {
-      queryText = exercise.prefillEditorText;
+      queryText = exercise.prefillEditorText || '';
     }
   });
   
   // Watch for exercise changes and update queryText
-  $: if (exercise?.initialCode && exercise.initialCode !== queryText) {
-    queryText = exercise.initialCode;
+  $: if (exercise?.prefillEditorText && exercise.prefillEditorText !== queryText) {
+    queryText = exercise.prefillEditorText;
   }
   
   let queryText = '';
