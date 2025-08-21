@@ -28,19 +28,23 @@
     <!-- Resource Bar -->
     <ExerciseResourceBar 
       resources={[]}
-      generalHintsUsed={userData.lesson.currentHintIndex >= 0 ? userData.lesson.currentHintIndex + 1 : 0}
+      currentHintIndex={userData.lesson.currentHintIndex}
       totalGeneralHints={currentConcept?.generalHints?.length || 0}
-      solutionHintsUsed={userData.lesson.currentSolutionIndex >= 0 ? userData.lesson.currentSolutionIndex + 1 : 0}
+      currentSolutionIndex={userData.lesson.currentSolutionIndex}
       totalSolutionHints={currentExercise?.solutions?.length || 0}
+      currentContentType={userData.lesson.currentContentType}
+      currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
+      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentExercise?.solutions?.[userData.lesson.currentSolutionIndex] || '' : ''}
       onUseGeneralHint={userActions.showNextHint}
       onUseSolutionHint={userActions.showNextSolution}
+      onUseEncouragement={userActions.showNextEncouragement}
     />
 
     <!-- Exercise Inquiry -->
     <InquiryDisplay 
       exerciseInquiry={currentExercise.inquiry || ''}
       currentHint={userData.lesson.currentHintIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentHintIndex]?.text || '' : ''}
-      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentConcept?.generalHints?.[userData.lesson.currentSolutionIndex]?.text || '' : ''}
+      currentSolution={userData.lesson.currentSolutionIndex >= 0 ? currentExercise?.solutions?.[userData.lesson.currentSolutionIndex] || '' : ''}
     />
 
     <SandboxInterface 

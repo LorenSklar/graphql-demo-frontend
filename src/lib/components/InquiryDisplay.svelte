@@ -1,7 +1,21 @@
 <script lang="ts">
+  import { teacherStore, getRandomEncouragement } from '$lib/stores/teacherStore';
+  import { userStore } from '$lib/stores/userStore';
+  
   export let exerciseInquiry: string = "";
   export let currentHint: string = "";
   export let currentSolution: string = "";
+  
+  // Get current state from stores
+  $: lessonData = $userStore;
+  $: teacherData = $teacherStore;
+  $: currentContentType = lessonData?.lesson?.currentContentType;
+  $: encouragementState = lessonData?.lesson?.encouragementState;
+  
+  // Get encouragement text based on current state
+  $: currentEncouragement = currentContentType === 'encouragement' && encouragementState 
+    ? getRandomEncouragement(encouragementState)
+    : '';
 </script>
 
 <div class="inquiry-display">
@@ -9,22 +23,6 @@
   {#if exerciseInquiry}
     <div class="inquiry-container">
       <h2 class="inquiry-question">{exerciseInquiry}</h2>
-    </div>
-  {/if}
-
-  <!-- Current Hint (only shown when requested) -->
-  {#if currentHint}
-    <div class="exercise-hint">
-      <span class="hint-label">💡 Hint:</span>
-      <span class="hint-text">{currentHint}</span>
-    </div>
-  {/if}
-
-  <!-- Current Solution (only shown when requested) -->
-  {#if currentSolution}
-    <div class="exercise-solution">
-      <span class="solution-label">✅ Solution:</span>
-      <span class="solution-text">{currentSolution}</span>
     </div>
   {/if}
 </div>
@@ -48,7 +46,7 @@
     margin: 0;
   }
 
-  .exercise-hint, .exercise-solution {
+  .exercise-hint, .exercise-solution, .exercise-encouragement {
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
@@ -67,7 +65,12 @@
     border-left: 4px solid #10b981;
   }
 
-  .hint-label, .solution-label {
+  .exercise-encouragement {
+    background-color: #fdf2f8;
+    border-left: 4px solid #ec4899;
+  }
+
+  .hint-label, .solution-label, .encouragement-label {
     font-weight: 600;
     font-size: 0.875rem;
     flex-shrink: 0;
@@ -81,7 +84,11 @@
     color: #065f46;
   }
 
-  .hint-text, .solution-text {
+  .encouragement-label {
+    color: #831843;
+  }
+
+  .hint-text, .solution-text, .encouragement-text {
     color: #451a03;
     line-height: 1.6;
     font-size: 1rem;
@@ -89,5 +96,9 @@
 
   .solution-text {
     color: #064e3b;
+  }
+
+  .encouragement-text {
+    color: #500724;
   }
 </style>
