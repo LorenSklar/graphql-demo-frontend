@@ -1,5 +1,7 @@
 # GraphQL Learning Platform Frontend - MVP
 
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
 A SvelteKit frontend for a GraphQL learning platform MVP. This thin slice demonstrates the core learning loop: concept → exercise → hints → solution.
 
 ## MVP Scope
@@ -251,4 +253,14 @@ This MVP focuses on:
 
 ## License
 
-Same as the backend project.
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
+
+This means you are free to:
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under the following terms:
+- **Attribution** — You must give appropriate credit and indicate if changes were made
+- **NonCommercial** — You may not use the material for commercial purposes
+
+For full license details, see the [LICENSE](LICENSE) file.
